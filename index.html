@@ -32,11 +32,12 @@
             gap: 1rem; /* Espacio entre la calavera y el bocadillo */
             margin-bottom: 1rem;
             flex-wrap: wrap; /* Permitir que se envuelva en pantallas pequeñas */
-            justify-content: center; /* Centrar el bloque completo */
+            /* Alinear a la izquierda para un flujo más limpio en terminal */
+            justify-content: flex-start; 
         }
 
         .zombie-message-bubble {
-            flex-grow: 1; /* Permitir que el bocadillo ocupe el espacio restante */
+            /* flex-grow: 1; (Eliminado: ya no se estira completamente en la línea) */
             min-width: 200px; /* Ancho mínimo para el bocadillo */
             background-color: rgba(255, 117, 24, 0.05);
             border: 1px solid rgba(255, 117, 24, 0.2);
@@ -44,7 +45,7 @@
             border-radius: 0.5rem;
             color: #fefcbf; /* yellow-100 */
             position: relative; /* Para la punta del bocadillo */
-            max-width: 70%; /* Limitar el ancho del bocadillo */
+            max-width: 85%; /* Se aumenta el máximo para mejor uso en móvil */
         }
 
         .zombie-message-bubble::before {
