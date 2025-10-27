@@ -18,24 +18,11 @@
         }
         .hidden { display: none; }
         .zombie-message {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
             background-color: rgba(255, 117, 24, 0.05);
-            border: 3px double rgba(255, 117, 24, 0.4);
+            border: 1px solid rgba(255, 117, 24, 0.2);
             padding: 1rem;
             border-radius: 0.5rem;
-        }
-        .zombie-portrait {
-            color: #facc15; /* yellow-400 */
-            line-height: 1.1;
-            font-size: 0.8em;
-            margin: 0;
-        }
-        .zombie-text {
             color: #fefcbf; /* yellow-100 */
-            margin: 0;
-            flex-grow: 1;
         }
         @media (prefers-reduced-motion: no-preference) {
             .matrix-effect::after {
@@ -102,9 +89,9 @@
 
         const skullPortrait = `<pre class="zombie-portrait text-center mb-4">
   _____ 
- /     \\
+ /     \
 | () () |
- \\  ^  /
+ \  ^  /
   |||||
   |||||
 </pre>`;
