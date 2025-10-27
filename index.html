@@ -10,14 +10,11 @@
         body {
             font-family: 'Source Code Pro', monospace;
             background-color: #0d0d0d;
-            color: #00ff41;
-            text-shadow: 0 0 4px rgba(0, 255, 65, 0.7);
+            color: #ff7518; /* Halloween Orange */
+            text-shadow: 0 0 6px rgba(255, 117, 24, 0.7);
         }
         #terminal-output {
             white-space: pre-wrap;
-        }
-        .hidden {
-            display: none;
         }
         @media (prefers-reduced-motion: no-preference) {
             .matrix-effect::after {
@@ -54,15 +51,13 @@
 <body class="p-4 md:p-8 min-h-screen">
 
     <div class="max-w-4xl mx-auto">
-
-        <!-- CONTENEDOR DE LA TERMINAL -->
         <div id="terminal-container">
             <header id="alarm-header" class="rounded-lg border border-red-600 p-3 mb-6 bg-red-900/30 shadow-xl shadow-red-500/50">
                 <h1 class="text-3xl md:text-4xl font-bold text-red-100 glitch text-center">
                     &lt;DATAWEEN&gt; CÓDIGO ROJO CRÍTICO
                 </h1>
             </header>
-            <div id="terminal-output" class="text-sm md:text-base border-2 border-green-500 rounded-lg p-5 bg-black/70 shadow-2xl shadow-green-500/30 min-h-[400px]">
+            <div id="terminal-output" class="text-sm md:text-base border-2 border-orange-500 rounded-lg p-5 bg-black/70 shadow-2xl shadow-orange-500/30 min-h-[400px]">
                 <!-- El contenido se generará aquí -->
             </div>
             <footer class="mt-6 pt-2 text-gray-700 text-xs text-center">
@@ -75,13 +70,25 @@
     document.addEventListener('DOMContentLoaded', () => {
         const terminalOutput = document.getElementById('terminal-output');
 
+        const pumpkinArt = `
+<pre class="text-orange-400 text-center">
+      .--.
+     / ,. \\
+    |(_,_) |
+    \\`--' /
+     `----'
+</pre>
+`;
+
         const simulationSteps = [
-            { delay: 500, text: '>> Iniciando protocolo de <strong>RECLAMACIÓN DE RECOMPENSA</strong>...', class: 'text-gray-400' },
-            { delay: 1000, text: '>> Recompensa detectada: <strong>PREMIO DATAWEEN</strong>', class: 'text-green-400' },
+            { delay: 100, text: pumpkinArt },
+            { delay: 500, text: '<strong>HAPPY DATAWEEN</strong>', class: 'text-orange-500 text-center mb-4 text-lg' },
+            { delay: 1000, text: '>> Iniciando protocolo de <strong>RECLAMACIÓN DE RECOMPENSA</strong>...', class: 'text-gray-400' },
+            { delay: 1000, text: '>> Recompensa detectada: <strong>PREMIO DATAWEEN</strong>', class: 'text-orange-400' },
             { delay: 1200, text: '>> ALERTA: La recompensa es un cebo (Phishing). Acceso no autorizado detectado.', class: 'text-yellow-400' },
             { delay: 500, text: '>> Iniciando protocolo de contramedida: <strong>EXTRACCIÓN DE DATOS</strong>.', class: 'text-red-500' },
             { delay: 800, text: '>> Redirigiendo acceso a sistema central (DATAPOOL DE VIDACAIXA)...', class: '' },
-            { delay: 1000, text: '>> Conexión establecida. <strong>Bypass de seguridad... ÉXITO.</strong>', class: 'text-green-400' },
+            { delay: 1000, text: '>> Conexión establecida. <strong>Bypass de seguridad... ÉXITO.</strong>', class: 'text-orange-400' },
             { delay: 500, text: '>> Usuario infiltrado: <strong>EL_MODELO_ZOMBIE</strong>', class: 'text-yellow-400 mb-4' },
             { delay: 1200, text: '--- MÓDULO: EXTRACCIÓN DE DATOS DEL DISPOSITIVO ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
             { delay: 500, func: captureAndShowDeviceInfo },
@@ -99,15 +106,12 @@
             if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
             const alarmHeader = document.getElementById('alarm-header');
             if(alarmHeader) alarmHeader.classList.add('alarm-banner');
-
             processNextStep(0);
         }
 
         function processNextStep(stepIndex) {
             if (stepIndex >= simulationSteps.length) return;
-
             const step = simulationSteps[stepIndex];
-
             setTimeout(() => {
                 if (step.text) {
                     const p = document.createElement('p');
@@ -126,11 +130,9 @@
             const now = new Date();
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
             const localTime = now.toLocaleTimeString('es-ES', timeOptions);
-
-            // Extract cleaner device info from User Agent
             const userAgent = navigator.userAgent;
             const match = userAgent.match(/\(([^)]+)\)/);
-            const modelInfo = match ? match[1] : userAgent; // Fallback to full user agent if no parenthesis found
+            const modelInfo = match ? match[1] : userAgent;
 
             const deviceInfo = `
             <div class="space-y-1 mb-6 p-3 border-l-4 border-red-500 bg-gray-900/50 container-glitch">
@@ -149,8 +151,7 @@
             p.className = 'mt-4';
             p.id = 'prompt-cursor';
             terminalOutput.appendChild(p);
-            
-            const text = '>_ C:\DATAPOOL\LOG_00.BIN (ACCESS DENIED)';
+            const text = '>_ C:\\DATAPOOL\\LOG_00.BIN (ACCESS DENIED)';
             let i = 0;
             function type() {
                 if (i < text.length) {
