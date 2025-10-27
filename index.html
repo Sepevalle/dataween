@@ -76,9 +76,11 @@
         const terminalOutput = document.getElementById('terminal-output');
 
         const simulationSteps = [
-            { delay: 500, text: '>> Iniciando protocolo de acceso QR...', class: 'text-gray-400' },
-            { delay: 700, text: '>> ERROR: Protocolo de acceso corrupto. Iniciando contramedidas...', class: 'text-yellow-400' },
-            { delay: 300, text: '>> Redirigiendo acceso a sistema central (DATAPOOL DE VIDACAIXA)...', class: '' },
+            { delay: 500, text: '>> Iniciando protocolo de <strong>RECLAMACIÓN DE RECOMPENSA</strong>...', class: 'text-gray-400' },
+            { delay: 1000, text: '>> Recompensa detectada: <strong>PREMIO DATAWEEN</strong>', class: 'text-green-400' },
+            { delay: 1200, text: '>> ALERTA: La recompensa es un cebo (Phishing). Acceso no autorizado detectado.', class: 'text-yellow-400' },
+            { delay: 500, text: '>> Iniciando protocolo de contramedida: <strong>EXTRACCIÓN DE DATOS</strong>.', class: 'text-red-500' },
+            { delay: 800, text: '>> Redirigiendo acceso a sistema central (DATAPOOL DE VIDACAIXA)...', class: '' },
             { delay: 1000, text: '>> Conexión establecida. <strong>Bypass de seguridad... ÉXITO.</strong>', class: 'text-green-400' },
             { delay: 500, text: '>> Usuario infiltrado: <strong>EL_MODELO_ZOMBIE</strong>', class: 'text-yellow-400 mb-4' },
             { delay: 1200, text: '--- MÓDULO: EXTRACCIÓN DE DATOS DEL DISPOSITIVO ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
@@ -87,7 +89,7 @@
             { delay: 800, text: '>> Analizando huella digital del navegador...', class: '' },
             { delay: 1000, text: '>> RESULTADO: Dispositivo <strong>MARCADO</strong>. Riesgo de predicción: <strong>100%</strong>.', class: 'text-yellow-400 mb-4' },
             { delay: 1500, text: '--- MENSAJE DEL MODELO ASESINO ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 800, text: 'Creíste que tenías el control de la predicción, Data Scientist. <br>Escaneaste un QR y encontraste tu final.', class: 'text-base md:text-lg mb-6' },
+            { delay: 800, text: 'Creíste que ibas a reclamar un premio, Data Scientist. <br>En su lugar, <strong>tus datos</strong> son ahora la recompensa.', class: 'text-base md:text-lg mb-6' },
             { delay: 1000, text: '>> Eliminando rastros...', class: '' },
             { delay: 500, text: '>> Corrupción de metadatos completa.', class: 'text-red-400' },
             { delay: 1500, func: typeFinalMessage }
