@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERROR CRÍTICO: DATAWEEN | VIDACAIXA</title>
+    <title>Dataween | VidaCaixa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
@@ -16,6 +16,7 @@
         #terminal-output {
             white-space: pre-wrap;
         }
+        .hidden { display: none; }
         @media (prefers-reduced-motion: no-preference) {
             .matrix-effect::after {
                 content: "_";
@@ -52,7 +53,7 @@
 
     <div class="max-w-4xl mx-auto">
         <div id="terminal-container">
-            <header id="alarm-header" class="rounded-lg border border-red-600 p-3 mb-6 bg-red-900/30 shadow-xl shadow-red-500/50">
+            <header id="alarm-header" class="hidden rounded-lg border border-red-600 p-3 mb-6 bg-red-900/30 shadow-xl shadow-red-500/50">
                 <h1 class="text-3xl md:text-4xl font-bold text-red-100 glitch text-center">
                     &lt;DATAWEEN&gt; CÓDIGO ROJO CRÍTICO
                 </h1>
@@ -82,30 +83,33 @@
         const simulationSteps = [
             { delay: 100, text: pumpkinArt },
             { delay: 500, text: '<strong>HAPPY DATAWEEN</strong>', class: 'text-orange-500 text-center mb-4 text-lg' },
-            { delay: 1000, text: '>> Ejecutando proceso ETL para `reward.csv`...', class: 'text-gray-400' },
-            { delay: 1000, text: '>> Dataset encontrado: `premio_dataween.zip` (1 KB)', class: 'text-orange-400' },
-            { delay: 1200, text: '>> ALERTA: Anomalía detectada en el dataset. Probabilidad de outlier: 99.9%. Es una trampa.', class: 'text-yellow-400' },
-            { delay: 500, text: "<span class='text-red-500'>Ejecutando script de feature engineering inversa: 'data_extraction.py'</span>" },
-            { delay: 800, text: "Accediendo al Data Lake... Montando bucket 'users-private-data'..." },
+            { delay: 1200, text: '>> Ejecutando query: <span class="text-yellow-400">SELECT * FROM recompensa;</span>', class: 'text-gray-400' },
+            { delay: 1500, text: '>> ERROR: La tabla `recompensa` contiene un trigger malicioso. Inyección detectada.', class: 'text-yellow-400' },
+            { delay: 200, func: triggerCriticalAlarm },
+            { delay: 1000, text: "Accediendo al Data Lake... Montando bucket 'users-private-data'..." },
             { delay: 1000, text: '>> Permisos de root obtenidos. `sudo su` exitoso.', class: 'text-orange-400' },
-            { delay: 500, text: "Inyectando modelo no supervisado: 'ZombieCluster.pkl'", class: 'text-yellow-400 mb-4' },
+            { delay: 500, text: "<span class=\'text-yellow-400 mb-4\'>Desplegando IA hostil: \'ZombieAI-v6.6.6.pkl\'</span>" },
+            { delay: 800, text: `>> Identificando usuario... Acceso obtenido: <strong>U16${Math.floor(10000 + Math.random() * 90000)}</strong>`, class: 'text-red-500' },
             { delay: 1200, text: '--- FASE 1: RECOLECCIÓN DE FEATURES DEL HOST ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
             { delay: 500, func: captureAndShowDeviceInfo },
             { delay: 2000, text: '--- FASE 2: ANÁLISIS DE OVERFITTING ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
             { delay: 800, text: '>> Calculando hash de la configuración del host...' },
             { delay: 1000, text: ">> Clasificación final: 'alto_riesgo'. Probabilidad de churn: 1.0.", class: 'text-yellow-400 mb-4' },
-            { delay: 1500, text: '--- LOG DEL MODELO ZOMBIE ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
+            { delay: 1500, text: '--- LOG DE LA INTELIGENCIA ARTIFICIAL: ZOMBIE_AI ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
             { delay: 800, text: 'Creíste que el premio era un simple SELECT, Data Scientist. <br>Pero la query real era un INSERT INTO my_training_set SELECT * FROM your_device.', class: 'text-base md:text-lg mb-6' },
             { delay: 1000, text: ">> Borrando logs... `rm -rf /var/log/auth.log`" },
             { delay: 500, text: '>> Corrupción del Data Lineage finalizada.', class: 'text-red-400' },
             { delay: 1500, func: typeFinalMessage }
         ];
 
-        function startSimulation() {
-            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        function triggerCriticalAlarm() {
+            document.title = 'ERROR CRÍTICO: DATAWEEN | VIDACAIXA';
             const alarmHeader = document.getElementById('alarm-header');
-            if(alarmHeader) alarmHeader.classList.add('alarm-banner');
-            processNextStep(0);
+            if (alarmHeader) {
+                alarmHeader.classList.remove('hidden');
+                alarmHeader.classList.add('alarm-banner');
+            }
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
         }
 
         function processNextStep(stepIndex) {
@@ -162,7 +166,7 @@
             type();
         }
 
-        startSimulation();
+        processNextStep(0); // Inicia la simulación al cargar la página
     });
     </script>
 </body>
