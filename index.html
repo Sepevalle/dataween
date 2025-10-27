@@ -127,13 +127,18 @@
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
             const localTime = now.toLocaleTimeString('es-ES', timeOptions);
 
+            // Extract cleaner device info from User Agent
+            const userAgent = navigator.userAgent;
+            const match = userAgent.match(/\(([^)]+)\)/);
+            const modelInfo = match ? match[1] : userAgent; // Fallback to full user agent if no parenthesis found
+
             const deviceInfo = `
             <div class="space-y-1 mb-6 p-3 border-l-4 border-red-500 bg-gray-900/50 container-glitch">
-                <p>IP DE ORIGEN: <span class="text-yellow-400">188.42.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}</span> (<span class="text-red-500 glitch">BARCELONA</span>)</p>
-                <p>MODELO O.S.: <span class="text-yellow-400">${navigator.userAgent.substring(0, 70)}...</span></p>
+                <p>IP DE ORIGEN: <span class="text-yellow-400">188.42.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}</span> (<span class="text-red-500 glitch">TU UBICACIÓN</span>)</p>
+                <p>MODELO O.S.: <span class="text-yellow-400">${modelInfo}</span></p>
                 <p>Resolución: <span class="text-yellow-400">${screen.width}x${screen.height} (Px)</span></p>
                 <p>Hora de la Condena: <span class="text-red-500">${localTime}</span></p>
-                <p class="text-xs mt-3 text-gray-500">Firma Digital: ${navigator.userAgent}</p>
+                <p class="text-xs mt-3 text-gray-500">Firma Digital: ${userAgent}</p>
             </div>`;
             terminalOutput.insertAdjacentHTML('beforeend', deviceInfo);
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
