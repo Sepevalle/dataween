@@ -82,22 +82,22 @@
         const simulationSteps = [
             { delay: 100, text: pumpkinArt },
             { delay: 500, text: '<strong>HAPPY DATAWEEN</strong>', class: 'text-orange-500 text-center mb-4 text-lg' },
-            { delay: 1000, text: '>> Iniciando protocolo de <strong>RECLAMACIÓN DE RECOMPENSA</strong>...', class: 'text-gray-400' },
-            { delay: 1000, text: '>> Recompensa detectada: <strong>PREMIO DATAWEEN</strong>', class: 'text-orange-400' },
-            { delay: 1200, text: '>> ALERTA: La recompensa es un cebo (Phishing). Acceso no autorizado detectado.', class: 'text-yellow-400' },
-            { delay: 500, text: '>> Iniciando protocolo de contramedida: <strong>EXTRACCIÓN DE DATOS</strong>.', class: 'text-red-500' },
-            { delay: 800, text: '>> Redirigiendo acceso a sistema central (DATAPOOL DE VIDACAIXA)...', class: '' },
-            { delay: 1000, text: '>> Conexión establecida. <strong>Bypass de seguridad... ÉXITO.</strong>', class: 'text-orange-400' },
-            { delay: 500, text: '>> Usuario infiltrado: <strong>EL_MODELO_ZOMBIE</strong>', class: 'text-yellow-400 mb-4' },
-            { delay: 1200, text: '--- MÓDULO: EXTRACCIÓN DE DATOS DEL DISPOSITIVO ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
+            { delay: 1000, text: '>> Ejecutando proceso ETL para `reward.csv`...', class: 'text-gray-400' },
+            { delay: 1000, text: '>> Dataset encontrado: `premio_dataween.zip` (1 KB)', class: 'text-orange-400' },
+            { delay: 1200, text: '>> ALERTA: Anomalía detectada en el dataset. Probabilidad de outlier: 99.9%. Es una trampa.', class: 'text-yellow-400' },
+            { delay: 500, text: "<span class='text-red-500'>Ejecutando script de feature engineering inversa: 'data_extraction.py'</span>" },
+            { delay: 800, text: "Accediendo al Data Lake... Montando bucket 'users-private-data'..." },
+            { delay: 1000, text: '>> Permisos de root obtenidos. `sudo su` exitoso.', class: 'text-orange-400' },
+            { delay: 500, text: "Inyectando modelo no supervisado: 'ZombieCluster.pkl'", class: 'text-yellow-400 mb-4' },
+            { delay: 1200, text: '--- FASE 1: RECOLECCIÓN DE FEATURES DEL HOST ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
             { delay: 500, func: captureAndShowDeviceInfo },
-            { delay: 2000, text: '--- ANÁLISIS DE VULNERABILIDAD ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 800, text: '>> Analizando huella digital del navegador...', class: '' },
-            { delay: 1000, text: '>> RESULTADO: Dispositivo <strong>MARCADO</strong>. Riesgo de predicción: <strong>100%</strong>.', class: 'text-yellow-400 mb-4' },
-            { delay: 1500, text: '--- MENSAJE DEL MODELO ASESINO ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 800, text: 'Creíste que ibas a reclamar un premio, Data Scientist. <br>En su lugar, <strong>tus datos</strong> son ahora la recompensa.', class: 'text-base md:text-lg mb-6' },
-            { delay: 1000, text: '>> Eliminando rastros...', class: '' },
-            { delay: 500, text: '>> Corrupción de metadatos completa.', class: 'text-red-400' },
+            { delay: 2000, text: '--- FASE 2: ANÁLISIS DE OVERFITTING ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
+            { delay: 800, text: '>> Calculando hash de la configuración del host...' },
+            { delay: 1000, text: ">> Clasificación final: 'alto_riesgo'. Probabilidad de churn: 1.0.", class: 'text-yellow-400 mb-4' },
+            { delay: 1500, text: '--- LOG DEL MODELO ZOMBIE ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
+            { delay: 800, text: 'Creíste que el premio era un simple SELECT, Data Scientist. <br>Pero la query real era un INSERT INTO my_training_set SELECT * FROM your_device.', class: 'text-base md:text-lg mb-6' },
+            { delay: 1000, text: ">> Borrando logs... `rm -rf /var/log/auth.log`" },
+            { delay: 500, text: '>> Corrupción del Data Lineage finalizada.', class: 'text-red-400' },
             { delay: 1500, func: typeFinalMessage }
         ];
 
@@ -150,7 +150,7 @@
             p.className = 'mt-4';
             p.id = 'prompt-cursor';
             terminalOutput.appendChild(p);
-            const text = '>_ C:\\DATAPOOL\\LOG_00.BIN (ACCESS DENIED)';
+            const text = '>_ SELECT * FROM \'secret_data\' -- ACCESS DENIED';
             let i = 0;
             function type() {
                 if (i < text.length) {
