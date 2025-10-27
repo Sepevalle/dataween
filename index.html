@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ERROR CRÍTICO: DATAWEEN | VIDACAIXA</title>
+    <!-- Carga de Tailwind CSS para un diseño limpio y rápido -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración para usar la fuente monoespacio (terminal style) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background-color: #0d0d0d; /* Fondo muy oscuro, casi negro */
+            color: #00ff41; /* Texto verde brillante estilo terminal */
+            text-shadow: 0 0 5px #00ff41; /* Efecto de brillo de terminal */
+            overflow-y: scroll; 
+        }
+        .matrix-effect::after {
+            content: "|";
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .glitch {
+            animation: glitch-anim 0.8s infinite alternate; /* Animación más rápida */
+        }
+        /* Animación de Glitch para un efecto de corrupción de datos */
+        @keyframes glitch-anim {
+            0% { transform: translate(0); text-shadow: 1px 1px 0 red; }
+            50% { transform: translate(-1px, 1px); text-shadow: -1px -1px 0 cyan; }
+            100% { transform: translate(1px, -1px); text-shadow: 1px 1px 0 red; }
+        }
+        /* ALARM FLASHING EFFECT */
+        @keyframes alarm-flash {
+            0%, 100% { background-color: #991b1b; border-color: #f87171; } /* Rojo oscuro */
+            50% { background-color: #b91c1c; border-color: #ef4444; } /* Rojo más brillante */
+        }
+        .alarm-banner {
+            animation: alarm-flash 0.3s infinite alternate;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-4xl mx-auto">
+
+        <!-- Banner de Alerta Crítica con ALARMA ROJA -->
+        <header id="alarm-header" class="border border-red-600 p-3 mb-6 bg-red-900/30 shadow-lg shadow-red-500/50 alarm-banner">
+            <h1 class="text-3xl md:text-4xl font-bold text-red-100 glitch text-center">
+                *** [DATAWEEN] CÓDIGO ROJO CRÍTICO ***
+            </h1>
+        </header>
+
+        <!-- Simulación de Terminal HACKEADA -->
+        <div id="terminal-output" class="text-sm md:text-base border border-green-500 p-4 bg-black/50 shadow-lg shadow-green-500/20">
+            
+            <!-- Conexión y estado de la red -->
+            <p class="mb-2">>> Conectando a Sistema Central (DATAPOOL DE VIDACAIXA)...</p>
+            <p class="mb-2 text-red-400">>> ERROR [401]: **AUTORIZACIÓN PENDIENTE DE VIDA**.</p>
+            <p class="mb-4 text-yellow-400">>> Usuario infiltrado: **EL_MODELO_ZOMBIE**</p>
+
+            <h2 class="text-xl font-bold mb-3 mt-4 text-yellow-400">--- MÓDULO: EXTRACCIÓN DE LA PÓLIZA DE VIDA ---</h2>
+
+            <!-- Ficha de Datos Personales -->
+            <div class="space-y-1 mb-6 p-3 border-l-4 border-yellow-500 bg-gray-900/50">
+                <p><strong><span class="text-red-500 glitch">DATA LEAK:</span></strong> Cliente-ID <span class="text-red-500">6660000</span></p>
+                <p>Tipo_Póliza: PÓLIZA DE VIDA (TERMINADA)</p>
+                <p>Estado: <span class="glitch">**TRANSFERENCIA A INFIERNO.DAT** (100%)</span></p>
+                <p class="text-red-400 mt-2">... ÉXITO: Los datos nunca mueren ...</p>
+            </div>
+            
+            <!-- SECCIÓN: INFILTRACIÓN DE DISPOSITIVO (Remote Access) -->
+            <h2 class="text-xl font-bold mb-3 mt-4 text-red-500">--- INFILTRACIÓN DE DISPOSITIVO: REGISTRO PERMANENTE ---</h2>
+            
+            <div class="space-y-1 mb-6 p-3 border-l-4 border-red-500 bg-gray-900/50">
+                <!-- IP simulada -->
+                <p>IP DE ORIGEN: <span class="text-yellow-400">188.42.XX.YY</span> (<span class="text-red-500 glitch">TU UBICACIÓN</span>)</p>
+                
+                <!-- Modelo de Dispositivo -->
+                <p>MODELO O.S.: <span id="device-model" class="text-yellow-400">... Procesando...</span></p>
+
+                <!-- Resto de datos capturados dinámicamente -->
+                <p>Resolución: <span id="screen-res" class="text-yellow-400">... Calculando...</span></p>
+                <p>Hora de la Condena: <span id="local-time" class="text-red-500">... Sincronizando...</span></p>
+                <p class="text-xs mt-3">Firma Digital (User Agent): <span id="digital-signature" class="text-gray-500">... Recopilando...</span></p>
+            </div>
+            
+            <!-- MENSAJE DEL ATACANTE (muy corto y directo) -->
+            <h2 class="text-xl font-bold mb-3 mt-4 text-red-500">--- MENSAJE DE TU MODELO ASESINO ---</h2>
+            <p class="text-base md:text-lg mb-6">
+                Creíste que tenías el control de la predicción, Data Scientist. <br>
+                **TU RIESGO ERA 100%.** Disfruta de Dataween.
+            </p>
+
+            <p class="mb-2">>> Eliminando rastros...</p>
+            <p class="mb-2 text-red-400">>> ERROR: Corrupción de metadatos completa.</p>
+            <p class="mt-4">
+                <span id="prompt-cursor" class="matrix-effect">>_ C:\\DATAPOOL\\LOG_00.BIN (ACCESS DENIED)</span>
+            </p>
+        </div>
+
+        <!-- Pie de página (invisible en QR, pero bueno para la inmersiva) -->
+        <footer class="mt-6 pt-2 text-gray-700 text-xs text-center">
+            [PROYECTO DATAWEEN: JOSEP VALLE]
+        </footer>
+
+    </div>
+
+    <script>
+        // Función para simular el tipeo del mensaje final
+        function typeWriter(text, i, fnCallback) {
+            if (i < (text.length)) {
+                document.getElementById("prompt-cursor").innerHTML = text.substring(0, i+1) + '<span class="matrix-effect"></span>';
+
+                setTimeout(function() {
+                    typeWriter(text, i + 1, fnCallback)
+                }, 50); // Velocidad de tipeo
+            } else if (typeof fnCallback == 'function') {
+                setTimeout(fnCallback, 700);
+            }
+        }
+
+        // FUNCIÓN AÑADIDA: Captura la información del dispositivo y la inyecta en el HTML
+        function captureDeviceInfo() {
+            const fullUserAgent = navigator.userAgent;
+            
+            // 1. User Agent (Device/OS/Browser) - Se acorta para mostrar el modelo/OS de forma clara
+            const modelInfo = fullUserAgent.substring(0, 70) + '...'; 
+            document.getElementById('device-model').textContent = modelInfo;
+            
+            // 1b. Full User Agent (Firma Digital) - Muestra el string completo para el 'realismo' de datos
+            document.getElementById('digital-signature').textContent = fullUserAgent; 
+
+            // 2. Screen Resolution
+            const screenRes = `${screen.width}x${screen.height} (Px)`;
+            document.getElementById('screen-res').textContent = screenRes;
+
+            // 3. Local Time (Hora de la Condena)
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                day: '2-digit',
+                month: '2-digit'
+            };
+            const localTime = now.toLocaleTimeString('es-ES', timeOptions) + ' (' + now.toLocaleDateString('es-ES', { month: 'short', day: '2-digit' }) + ')';
+            document.getElementById('local-time').textContent = localTime;
+        }
+
+        // FUNCIÓN AÑADIDA: Vibración y Alarma
+        function triggerAlarm() {
+            // 1. Vibración (Solo funcionará si el dispositivo lo permite y la página está enfocada)
+            if (navigator.vibrate) {
+                // Patrón de vibración corta: 200ms ON, 100ms OFF, 200ms ON
+                navigator.vibrate([200, 100, 200]); 
+            }
+            
+            // 2. La clase alarm-banner ya está en el header y maneja el flasheo CSS
+            const header = document.getElementById('alarm-header');
+            // Quitamos la alarma después de 5 segundos para que no sea molesto
+            setTimeout(() => {
+                header.classList.remove('alarm-banner');
+            }, 5000); 
+        }
+
+        // Simula la terminal tipeando y ejecuta la captura de datos al cargar
+        window.onload = function() {
+            // 1. Activar efectos de alarma y vibración
+            triggerAlarm();
+
+            // 2. Capturar y mostrar la información del dispositivo inmediatamente.
+            captureDeviceInfo();
+
+            // 3. Simular el tipeo del mensaje final.
+            const finalMessage = '>_ C:\\DATAPOOL\\LOG_00.BIN (ACCESS DENIED)';
+            typeWriter(finalMessage, 0, null);
+        };
+    </script>
+</body>
+</html>
