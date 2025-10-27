@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+        /* Base Styles */
         body {
             font-family: 'Source Code Pro', monospace;
             background-color: #0d0d0d;
@@ -17,13 +18,50 @@
             white-space: pre-wrap;
         }
         .hidden { display: none; }
-        .zombie-message {
+        
+        /* Custom Icon Styling */
+        .svg-icon {
+            display: block;
+            margin: 0 auto; /* Centrar los iconos por defecto si están solos */
+        }
+
+        /* Estilos para el contenedor del diálogo de la IA */
+        .zombie-dialogue-container {
+            display: flex; /* Usar Flexbox para alinear elementos */
+            align-items: center; /* Centrar verticalmente */
+            gap: 1rem; /* Espacio entre la calavera y el bocadillo */
+            margin-bottom: 1rem;
+            flex-wrap: wrap; /* Permitir que se envuelva en pantallas pequeñas */
+            justify-content: center; /* Centrar el bloque completo */
+        }
+
+        .zombie-message-bubble {
+            flex-grow: 1; /* Permitir que el bocadillo ocupe el espacio restante */
+            min-width: 200px; /* Ancho mínimo para el bocadillo */
             background-color: rgba(255, 117, 24, 0.05);
             border: 1px solid rgba(255, 117, 24, 0.2);
             padding: 1rem;
             border-radius: 0.5rem;
             color: #fefcbf; /* yellow-100 */
+            position: relative; /* Para la punta del bocadillo */
+            max-width: 70%; /* Limitar el ancho del bocadillo */
         }
+
+        .zombie-message-bubble::before {
+            content: '';
+            position: absolute;
+            left: -10px; /* Posicionar la punta a la izquierda del bocadillo */
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 117, 24, 0.05);
+            border-left: 1px solid rgba(255, 117, 24, 0.2);
+            border-bottom: 1px solid rgba(255, 117, 24, 0.2);
+            z-index: 9;
+        }
+        
+        /* Animation Effects */
         @media (prefers-reduced-motion: no-preference) {
             .matrix-effect::after {
                 content: "_";
@@ -33,22 +71,12 @@
             .glitch {
                 animation: glitch-anim 0.4s infinite alternate;
             }
-            .alarm-banner {
-                animation: alarm-flash 0.2s infinite alternate;
-            }
-            .container-glitch {
-                animation: container-glitch-anim 0.2s linear infinite alternate;
-            }
         }
         @keyframes blink { 50% { opacity: 0; } }
         @keyframes glitch-anim {
             0% { transform: translate(0.5px, 0.5px); text-shadow: 0.5px 0.5px 0 red; }
             50% { transform: translate(-0.5px, -0.5px); text-shadow: -0.5px -0.5px 0 cyan; }
             100% { transform: translate(0.5px, -0.5px); text-shadow: 0.5px 0.5px 0 red; }
-        }
-        @keyframes alarm-flash {
-            0%, 100% { background-color: #991b1b; border-color: #f87171; }
-            50% { background-color: #b91c1c; border-color: #ef4444; }
         }
         @keyframes container-glitch-anim {
             0% { transform: skewX(1deg) scaleY(1.005); filter: hue-rotate(0deg); }
@@ -60,14 +88,9 @@
 
     <div class="max-w-4xl mx-auto">
         <div id="terminal-container">
-            <header id="alarm-header" class="hidden rounded-lg border border-red-600 p-3 mb-6 bg-red-900/30 shadow-xl shadow-red-500/50">
-                <h1 class="text-3xl md:text-4xl font-bold text-red-100 glitch text-center">
-                    &lt;DATAWEEN&gt; CÓDIGO ROJO CRÍTICO
-                </h1>
-            </header>
+            <!-- BANNER ROJO ELIMINADO -->
             <div id="terminal-output" class="text-sm md:text-base border-2 border-orange-500 rounded-lg p-5 bg-black/70 shadow-2xl shadow-orange-500/30 min-h-[400px]">
-                <!-- El contenido se generará aquí -->
-            </div>
+                <!-- El contenido se generará aquí --></div>
             <footer class="mt-6 pt-2 text-gray-700 text-xs text-center">
                 [PROYECTO DATAWEEN: JOSEP VALLE]
             </footer>
@@ -78,71 +101,87 @@
     document.addEventListener('DOMContentLoaded', () => {
         const terminalOutput = document.getElementById('terminal-output');
 
-        const pumpkinArt = `<pre class="text-orange-400 text-center" style="line-height: 1;">
-  ████████
- ██      ██
-██  ██  ██  ██
-██        ██
- ██  ██  ██
-  ████████
-</pre>`;
+        // SVG DE CALAVERA ZOMBIE_AI con aspecto más orgánico/deteriorado
+        const skullSVG = `
+            <svg class="svg-icon zombie-portrait" width="100" height="80" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sombra para el resplandor --><defs>
+                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <!-- Cráneo deteriorado --><path d="M25 15 C10 30, 10 60, 25 70 C40 80, 60 80, 75 70 C90 60, 90 30, 75 15 Z" fill="#4a1a00" stroke="#ff4500" stroke-width="2" filter="url(#glow)"/>
+                <!-- Grietas --><path d="M50 15 L45 25 L55 30 L50 40" stroke="#2a0f00" stroke-width="1"/>
+                <path d="M30 30 L25 40 L35 45" stroke="#2a0f00" stroke-width="1"/>
+                <path d="M70 30 L75 40 L65 45" stroke="#2a0f00" stroke-width="1"/>
+                <!-- Ojo izquierdo (vacío) --><circle cx="40" cy="35" r="7" fill="#2a0f00" stroke="#ff4500" stroke-width="1"/>
+                <!-- Ojo derecho (IA brillante) --><circle cx="60" cy="35" r="7" fill="#dc2626" filter="url(#glow)"/>
+                <!-- Nariz --><path d="M48 48 Q50 50, 52 48 L52 45 Q50 43, 48 45 Z" fill="#2a0f00" stroke="#ff4500" stroke-width="0.5"/>
+                <!-- Dientes (irregulares) --><path d="M35 60 C38 58, 42 58, 45 60 C48 58, 52 58, 55 60 C58 58, 62 58, 65 60" fill="none" stroke="#fefcbf" stroke-width="1"/>
+                <path d="M38 63 C40 61, 44 61, 47 63" fill="none" stroke="#fefcbf" stroke-width="1"/>
+            </svg>
+        `;
 
-        const skullPortrait = `<pre class="zombie-portrait text-center mb-4">
-  _____ 
- /     \
-| () () |
- \  ^  /
-  |||||
-  |||||
-</pre>`;
+        // El mensaje de la IA se mueve al bocadillo directamente en JavaScript
+        const zombieDialogue = "Creíste que el premio era un simple SELECT, Data Scientist. Pero la query real era un INSERT INTO my_training_set SELECT * FROM your_device.";
 
-        const zombieMessageHTML = `
-<div class="zombie-message">
-    ${skullPortrait}
-    <p class="zombie-text">
-    Creíste que el premio era un simple SELECT, Data Scientist. <br>Pero la query real era un INSERT INTO my_training_set SELECT * FROM your_device.
-    </p>
-</div>
-`;
+        // El HTML que combina la calavera y el bocadillo
+        const skullAndBubbleHTML = `
+            <div class="zombie-dialogue-container">
+                ${skullSVG}
+                <div class="zombie-message-bubble">
+                    <p id="skull-dialogue" class="zombie-text text-lg"></p>
+                </div>
+            </div>
+        `;
 
         const simulationSteps = [
-            { delay: 100, text: pumpkinArt },
-            { delay: 500, text: skullPortrait },
-            { delay: 1500, text: '>> Ejecutando query: <span class="text-yellow-400">SELECT * FROM recompensa;</span>', class: 'text-gray-400' },
-            { delay: 2000, text: '>> ERROR: La query ha despertado una IA corrupta residente en el <strong>DATAPOOL</strong>.', class: 'text-yellow-400' },
-            { delay: 200, func: triggerCriticalAlarm },
-            { delay: 1500, text: "Accediendo al Data Lake... Montando bucket 'users-private-data'..." },
-            { delay: 1500, text: '>> Permisos de root obtenidos. `sudo su` exitoso.', class: 'text-orange-400' },
-            { delay: 1000, text: "<span class='text-yellow-400 mb-4'>Desplegando IA hostil: 'ZombieAI-v6.6.6.pkl'</span>" },
-            { delay: 1200, text: `>> Identificando usuario... Acceso obtenido: <strong>U16${Math.floor(10000 + Math.random() * 90000)}</strong>`, class: 'text-red-500' },
-            { delay: 1500, text: '--- FASE 1: RECOLECCIÓN DE FEATURES DEL HOST ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 500, func: captureAndShowDeviceInfo },
-            { delay: 2500, text: '--- FASE 2: ESCANEO DE VULNERABILIDADES ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 1200, text: '>> Calculando hash de la configuración del host...' },
-            { delay: 2000, text: ">> Clasificación de seguridad: <strong>COMPROMETIDO</strong>. Nivel de amenaza: <strong>CRÍTICO</strong>.", class: 'text-yellow-400 mb-4' },
-            { delay: 2000, text: '--- LOG DE LA INTELIGENCIA ARTIFICIAL: ZOMBIE_AI ---', class: 'text-xl font-bold mb-3 mt-4 text-red-500' },
-            { delay: 3000, text: zombieMessageHTML, class: 'text-base md:text-lg mb-6' },
+            // 1. Icono y Activación
+            { delay: 100, text: skullSVG }, 
+            { delay: 500, text: '<p class="text-center text-red-500 font-bold text-xl">HAPPY DATAWEEN - ZOMBIE_AI.PYC ACTIVADO</p>' }, 
+            
+            // 2. Ataque Inicial
+            { delay: 1000, text: '>> Ejecutando query: <span class="text-yellow-400">SELECT * FROM recompensa;</span>', class: 'text-gray-400' }, 
+            { delay: 1500, text: '>> ERROR: La query ha despertado una IA corrupta residente en el <strong>DATAPOOL</strong>.', class: 'text-yellow-400' }, 
+            
+            // 3. Despliegue y Root
+            { delay: 1000, text: "<span class='text-yellow-400 mb-4'>Desplegando IA hostil: 'ZombieAI-v6.6.6.pkl'</span>" }, 
+            { delay: 200, func: () => { 
+                document.title = 'ERROR CRÍTICO: DATAWEEN | VIDACAIXA'; 
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]); 
+            } }, // Cambio de título y vibración
+            { delay: 1000, text: '>> Permisos de root obtenidos. `sudo su` exitoso.', class: 'text-orange-400' }, 
+            
+            // 4. Análisis del Host (Fases 1 & 2)
+            { delay: 1200, text: `>> Identificando usuario... Acceso obtenido: <strong>U16${Math.floor(10000 + Math.random() * 90000)}</strong>`, class: 'text-red-500' }, 
+            { delay: 500, func: captureAndShowDeviceInfo }, // Muestra información del dispositivo (Fases 1 y 2)
+            
+            // 5. Confirmación Crítica
+            { delay: 800, text: '>> Calculando hash de la configuración del host...' }, 
+            { delay: 1500, text: ">> Clasificación de seguridad: <strong>COMPROMETIDO</strong>. Nivel de amenaza: <strong>CRÍTICO</strong>.", class: 'text-yellow-400 mb-4' }, 
+            
+            // 6. Ejecución Final (DataNow Access)
+            { delay: 1000, text: "Accediendo al DataNow... Montando bucket 'users-private-data'..." }, 
+            
+            // 7. EXFILTRACIÓN Y LIMPIEZA
+            { delay: 1000, text: '>> EXFILTRACIÓN: Datos del host transferidos a <span class="text-red-400">s3://zombieai-darknet-bucket</span>. Tamaño: 42MB.' }, // LÍNEA DE ROBO DE DATOS
             { delay: 1500, text: '>> Borrando logs... `rm -rf /var/log/auth.log`' },
             { delay: 1500, text: '>> Infección del <strong>DATAPOOL</strong> completada. El sistema es nuestro.', class: 'text-red-400' },
-            { delay: 1500, func: typeFinalMessage }
-        ];
 
-        function triggerCriticalAlarm() {
-            document.title = 'ERROR CRÍTICO: DATAWEEN | VIDACAIXA';
-            const alarmHeader = document.getElementById('alarm-header');
-            if (alarmHeader) {
-                alarmHeader.classList.remove('hidden');
-                alarmHeader.classList.add('alarm-banner');
-            }
-            if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
-        }
+            // 8. Mensaje de la IA (Último elemento visual)
+            { delay: 2000, text: skullAndBubbleHTML, class: 'text-base md:text-lg mb-6' }, 
+            { delay: 100, func: typeZombieDialogueAndEnd } 
+        ];
 
         function processNextStep(stepIndex) {
             if (stepIndex >= simulationSteps.length) return;
             const step = simulationSteps[stepIndex];
             setTimeout(() => {
                 if (step.text) {
-                    const p = document.createElement('p');
+                    const p = document.createElement('div'); 
                     p.innerHTML = step.text;
                     p.className = step.class || '';
                     terminalOutput.appendChild(p);
@@ -154,44 +193,77 @@
             }, step.delay);
         }
 
+        // Función para "escribir" el diálogo y luego finalizar la secuencia
+        function typeZombieDialogueAndEnd() {
+            const dialogueP = document.getElementById('skull-dialogue'); 
+            if (!dialogueP) return; 
+
+            dialogueP.innerHTML = ''; 
+            let i = 0;
+            const textToType = zombieDialogue; 
+
+            function typeChar() {
+                if (i < textToType.length) {
+                    dialogueP.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeChar, 30); 
+                } else {
+                    // Mensaje final después de que se ha escrito el diálogo
+                    const p = document.createElement('p');
+                    p.className = 'mt-4 text-red-500 text-center font-bold glitch';
+                    p.innerHTML = 'CONEXIÓN PERDIDA...';
+                    terminalOutput.appendChild(p);
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+            }
+            typeChar();
+        }
+
+        // Función modificada para integrar la información como una lista de comandos simulada
         function captureAndShowDeviceInfo() {
             const now = new Date();
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
             const localTime = now.toLocaleTimeString('es-ES', timeOptions);
             const userAgent = navigator.userAgent;
+            
+            // Tries to get OS/Model info, falls back to full user agent string
+            let modelInfo;
             const match = userAgent.match(/\(([^)]+)\)/);
-            const modelInfo = match ? match[1] : userAgent;
-
-            const deviceInfo = `
-            <div class="space-y-1 mb-6 p-3 border-l-4 border-red-500 bg-gray-900/50 container-glitch">
-                <p>IP DE ORIGEN: <span class="text-yellow-400">188.42.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}</span> (<span class="text-red-500 glitch">TU UBICACIÓN</span>)</p>
-                <p>MODELO O.S.: <span class="text-yellow-400">${modelInfo}</span></p>
-                <p>Resolución: <span class="text-yellow-400">${screen.width}x${screen.height} (Px)</span></p>
-                <p>Hora de la Condena: <span class="text-red-500">${localTime}</span></p>
-                <p class="text-xs mt-3 text-gray-500">Firma Digital: ${userAgent}</p>
-            </div>`;
-            terminalOutput.insertAdjacentHTML('beforeend', deviceInfo);
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }
-
-        function typeFinalMessage() {
-            const p = document.createElement('p');
-            p.className = 'mt-4';
-            p.id = 'prompt-cursor';
-            terminalOutput.appendChild(p);
-            const text = '>_ SELECT * FROM \'secret_data\' -- ACCESS DENIED';
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    p.innerHTML = text.substring(0, i + 1) + '<span class="matrix-effect"></span>';
-                    i++;
-                    setTimeout(type, 50);
+            if (match && match[1]) {
+                const parts = match[1].split(';').map(s => s.trim());
+                if (parts.length > 2) {
+                    modelInfo = parts[1] + ' (' + parts[2].split(' ')[0] + ')'; 
+                } else {
+                    modelInfo = match[1];
                 }
+            } else {
+                modelInfo = userAgent.substring(userAgent.indexOf(')') + 2, userAgent.indexOf(')'));
             }
-            type();
+
+            const deviceInfoLines = [
+                '<p class="mt-4 text-red-500">>> FASE 1: RECOLECCIÓN DE FEATURES DEL HOST INICIADA</p>',
+                `<p>>> Ejecutando 'ifconfig': IP DE ORIGEN: <span class="text-yellow-400">188.42.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}</span> (<span class="text-red-500 glitch">TU UBICACIÓN</span>)</p>`,
+                `<p>>> Ejecutando 'cat /etc/os-release': MODELO O.S.: <span class="text-yellow-400">${modelInfo}</span></p>`,
+                `<p>>> Ejecutando 'xrandr': Resolución: <span class="text-yellow-400">${screen.width}x${screen.height} (Px)</span></p>`,
+                `<p>>> Ejecutando 'date +%T': Hora de la Condena: <span class="text-red-500">${localTime}</span></p>`,
+                '<p class="mt-2 text-red-500">>> FASE 1: COMPLETADA</p>',
+                '<p class="mt-4 text-red-500">>> FASE 2: ESCANEO DE VULNERABILIDADES INICIADA</p>',
+            ];
+
+            deviceInfoLines.forEach((line, index) => {
+                const p = document.createElement('div');
+                p.innerHTML = line;
+                p.className = 'text-sm';
+                setTimeout(() => {
+                    terminalOutput.appendChild(p);
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }, index * 100); 
+            });
+            
         }
 
-        processNextStep(0); // Inicia la simulación al cargar la página
+        // Inicia la simulación
+        processNextStep(0); 
     });
     </script>
 </body>
