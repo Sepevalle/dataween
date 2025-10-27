@@ -111,8 +111,9 @@
     <script>
         // Función para simular el tipeo del mensaje final
         function typeWriter(text, i, fnCallback) {
-            if (i < (text.length)) {
-                document.getElementById("prompt-cursor").innerHTML = text.substring(0, i+1) + '<span class="matrix-effect"></span>';
+            const cursorElement = document.getElementById("prompt-cursor");
+            if (cursorElement && i < (text.length)) {
+                cursorElement.innerHTML = text.substring(0, i+1) + '<span class="matrix-effect"></span>';
 
                 setTimeout(function() {
                     typeWriter(text, i + 1, fnCallback)
@@ -126,16 +127,22 @@
         function captureDeviceInfo() {
             const fullUserAgent = navigator.userAgent;
             
+            // Elementos DOM
+            const modelEl = document.getElementById('device-model');
+            const signatureEl = document.getElementById('digital-signature');
+            const resEl = document.getElementById('screen-res');
+            const timeEl = document.getElementById('local-time');
+            
             // 1. User Agent (Device/OS/Browser) - Se acorta para mostrar el modelo/OS de forma clara
             const modelInfo = fullUserAgent.substring(0, 70) + '...'; 
-            document.getElementById('device-model').textContent = modelInfo;
+            if (modelEl) modelEl.textContent = modelInfo;
             
             // 1b. Full User Agent (Firma Digital) - Muestra el string completo para el 'realismo' de datos
-            document.getElementById('digital-signature').textContent = fullUserAgent; 
+            if (signatureEl) signatureEl.textContent = fullUserAgent; 
 
             // 2. Screen Resolution
             const screenRes = `${screen.width}x${screen.height} (Px)`;
-            document.getElementById('screen-res').textContent = screenRes;
+            if (resEl) resEl.textContent = screenRes;
 
             // 3. Local Time (Hora de la Condena)
             const now = new Date();
@@ -147,7 +154,7 @@
                 month: '2-digit'
             };
             const localTime = now.toLocaleTimeString('es-ES', timeOptions) + ' (' + now.toLocaleDateString('es-ES', { month: 'short', day: '2-digit' }) + ')';
-            document.getElementById('local-time').textContent = localTime;
+            if (timeEl) timeEl.textContent = localTime;
         }
 
         // FUNCIÓN AÑADIDA: Vibración y Alarma
@@ -161,9 +168,11 @@
             // 2. La clase alarm-banner ya está en el header y maneja el flasheo CSS
             const header = document.getElementById('alarm-header');
             // Quitamos la alarma después de 5 segundos para que no sea molesto
-            setTimeout(() => {
-                header.classList.remove('alarm-banner');
-            }, 5000); 
+            if (header) {
+                setTimeout(() => {
+                    header.classList.remove('alarm-banner');
+                }, 5000); 
+            }
         }
 
         // Simula la terminal tipeando y ejecuta la captura de datos al cargar
