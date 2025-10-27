@@ -70,15 +70,14 @@
     document.addEventListener('DOMContentLoaded', () => {
         const terminalOutput = document.getElementById('terminal-output');
 
-        const pumpkinArt = `
-<pre class="text-orange-400 text-center">
-      .--.
-     / ,. \\
-    |(_,_) |
-    \\`--' /
-     `----'
-</pre>
-`;
+        const pumpkinArt = `<pre class="text-orange-400 text-center" style="line-height: 1;">
+  ████████
+ ██      ██
+██  ██  ██  ██
+██        ██
+ ██  ██  ██
+  ████████
+</pre>`;
 
         const simulationSteps = [
             { delay: 100, text: pumpkinArt },
